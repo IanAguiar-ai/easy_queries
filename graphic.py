@@ -234,13 +234,16 @@ def up_bar(m, load:str = "Loading..."):
 
 @Parallel
 def correct_bar():
-    while True:
-        n1 = p_bar_value.get()
-        sleep(1)
-        n2 = p_bar_value.get()
-        if n1 == n2 and n1 > 0.1 and n2 > 0.1:
-            down_bar(0)
-        sleep(0.5)
+    try:
+        while True:
+            n1 = p_bar_value.get()
+            sleep(1)
+            n2 = p_bar_value.get()
+            if n1 == n2 and n1 > 0.1 and n2 > 0.1:
+                down_bar(0)
+            sleep(0.5)
+    except RuntimeError:
+        pass
 
 @Parallel
 def past_column():
@@ -291,43 +294,49 @@ def past_column():
         temp_df = memory[find_to.get()][5 + n_column_past]["output"]
     
     while True:
-        list_past = ttk.Combobox(gp, textvariable = find_to,
-                                 values = list(memory.keys()), font = "Arial 20").place(x = 860, y = 15)
+        try:
+            list_past = ttk.Combobox(gp, textvariable = find_to,
+                                     values = list(memory.keys()), font = "Arial 20").place(x = 860, y = 15)
 
-        for i in range(6):
-            try:
-                m = memory[find_to.get()][i + n_column_past]
-                Label(gp, text = m["time"] + " " * (55 - len(m["time"])),
-                      font = "Times 19", bg = c_1, fg = 'White',
-                      borderwidth = 0, relief = "sunken").place(x = 860, y = 60 + 120 * i)
-                Label(gp, text = m["input"][:30] + "..." + " " * (35 - len(m["input"][:30])) ,
-                      font = "Times 19", bg = c_1, fg = 'White',
-                      borderwidth = 0, relief = "sunken").place(x = 860, y = 90 + 120 * i)
-                Label(gp, text = m["query"][:30].replace("\n"," ").replace("  "," ") + "..." + " " * (35 - len(m["query"][:30].replace("\n"," ").replace("  "," "))),
-                      font = "Times 19", bg = c_1, fg = 'White',
-                      borderwidth = 0, relief = "sunken").place(x = 860, y = 120 + 120 * i)
+            for i in range(6):
+                try:
+                    m = memory[find_to.get()][i + n_column_past]
+                    Label(gp, text = m["time"] + " " * (55 - len(m["time"])),
+                          font = "Times 19", bg = c_1, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 860, y = 60 + 120 * i)
+                    Label(gp, text = m["input"][:30] + "..." + " " * (35 - len(m["input"][:30])) ,
+                          font = "Times 19", bg = c_1, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 860, y = 90 + 120 * i)
+                    Label(gp, text = m["query"][:30].replace("\n"," ").replace("  "," ") + "..." + " " * (35 - len(m["query"][:30].replace("\n"," ").replace("  "," "))),
+                          font = "Times 19", bg = c_1, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 860, y = 120 + 120 * i)
 
-                function = eval(f"pass_example_{i}")
-                Button(gp, text = "←",
-                       bg = c_atention, borderwidth = 1, font = "Arial 10", activebackground = c_help,
-                       activeforeground = 'White', fg = 'White',
-                       command = function).place(x = 1175, y = 60 + 120 * i)
-
-            except:
-                pass
+                    function = eval(f"pass_example_{i}")
+                    Button(gp, text = "←",
+                           bg = c_atention, borderwidth = 1, font = "Arial 10", activebackground = c_help,
+                           activeforeground = 'White', fg = 'White',
+                           command = function).place(x = 1175, y = 60 + 120 * i)        
+                except:
+                    pass
+        except RuntimeError:
+            break  
 
         sleep(3)
 
 @Parallel
 def how_many_threads():
-    while True:
-        hm = active_count()
-        if hm < 10:
-            hm = "0"+str(hm)
-        Label(gp, text = f"Active concurrent threads: {str(hm)}",
-                      font = "Times 10", bg = c_1, fg = 'White',
-                      borderwidth = 0, relief = "sunken").place(x = 5, y = 5)
-        sleep(1)
+    try:
+        while True:
+            hm = active_count()
+            if hm < 10:
+                hm = "0"+str(hm)
+            Label(gp, text = f"Active concurrent threads: {str(hm)}",
+                          font = "Times 10", bg = c_1, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 5, y = 5)
+            sleep(1)
+    except RuntimeError:
+        pass
+        
 
 ### Parte gráfica:
 if __name__ == "__main__":
