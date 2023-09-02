@@ -89,7 +89,7 @@ def time():
             else:
                 Label(gp, text = f"⏳ {time_now.hour}:0{time_now.minute}",
                       font = "Times 18", bg = c_main, fg = 'White').place(x = 728, y = 278)
-            sleep(15)
+            sleep(10)
         except:
             break
 
@@ -238,81 +238,105 @@ def correct_bar():
 
 @Parallel
 def past_column():
-    global memory
-    n_column_past = 0
+    global memory, n_column_past
 
     def pass_example_0():
         global temp_df, name_xlsx
         clean()
-        box_text.insert("1.0", memory[find_to.get()][0 + n_column_past]["input"])
+        box_text.insert("1.0", memory[find_to.get()][0 + n_column_past*5]["input"])
         box_sql.delete("1.0", "1000.1000")
-        box_sql.insert("1.0", memory[find_to.get()][0 + n_column_past]["query"].replace("\n"," "))
-        temp_df = memory[find_to.get()][0 + n_column_past]["output"]
+        box_sql.insert("1.0", memory[find_to.get()][0 + n_column_past*5]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][0 + n_column_past*5]["output"]
     def pass_example_1():
         global temp_df, name_xlsx
         clean()
-        box_text.insert("1.0", memory[find_to.get()][1 + n_column_past]["input"])
+        box_text.insert("1.0", memory[find_to.get()][1 + n_column_past*5]["input"])
         box_sql.delete("1.0", "1000.1000")
-        box_sql.insert("1.0", memory[find_to.get()][1 + n_column_past]["query"].replace("\n"," "))
-        temp_df = memory[find_to.get()][1 + n_column_past]["output"]
+        box_sql.insert("1.0", memory[find_to.get()][1 + n_column_past*5]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][1 + n_column_past*5]["output"]
     def pass_example_2():
         global temp_df, name_xlsx
         clean()
-        box_text.insert("1.0", memory[find_to.get()][2 + n_column_past]["input"])
+        box_text.insert("1.0", memory[find_to.get()][2 + n_column_past*5]["input"])
         box_sql.delete("1.0", "1000.1000")
-        box_sql.insert("1.0", memory[find_to.get()][2 + n_column_past]["query"].replace("\n"," "))
-        temp_df = memory[find_to.get()][2 + n_column_past]["output"]
+        box_sql.insert("1.0", memory[find_to.get()][2 + n_column_past*5]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][2 + n_column_past*5]["output"]
     def pass_example_3():
         global temp_df, name_xlsx
         clean()
-        box_text.insert("1.0", memory[find_to.get()][3 + n_column_past]["input"])
+        box_text.insert("1.0", memory[find_to.get()][3 + n_column_past*5]["input"])
         box_sql.delete("1.0", "1000.1000")
-        box_sql.insert("1.0", memory[find_to.get()][3 + n_column_past]["query"].replace("\n"," "))
-        temp_df = memory[find_to.get()][3 + n_column_past]["output"]
+        box_sql.insert("1.0", memory[find_to.get()][3 + n_column_past*5]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][3 + n_column_past*5]["output"]
     def pass_example_4():
         global temp_df, name_xlsx
         clean()
-        box_text.insert("1.0", memory[find_to.get()][4 + n_column_past]["input"])
+        box_text.insert("1.0", memory[find_to.get()][4 + n_column_past*5]["input"])
         box_sql.delete("1.0", "1000.1000")
-        box_sql.insert("1.0", memory[find_to.get()][4 + n_column_past]["query"].replace("\n"," "))
-        temp_df = memory[find_to.get()][4 + n_column_past]["output"]
-    def pass_example_5():
-        global temp_df, name_xlsx
-        clean()
-        box_text.insert("1.0", memory[find_to.get()][5 + n_column_past]["input"])
-        box_sql.delete("1.0", "1000.1000")
-        box_sql.insert("1.0", memory[find_to.get()][5 + n_column_past]["query"].replace("\n"," "))
-        temp_df = memory[find_to.get()][5 + n_column_past]["output"]
-    
-    while True:
-        try:
-            list_past = ttk.Combobox(gp, textvariable = find_to,
-                                     values = list(memory.keys()), font = "Arial 20").place(x = 860, y = 15)
+        box_sql.insert("1.0", memory[find_to.get()][4 + n_column_past*5]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][4 + n_column_past*5]["output"]
 
-            for i in range(6):
-                try:
-                    m = memory[find_to.get()][i + n_column_past]
-                    Label(gp, text = m["time"] + " " * (55 - len(m["time"])),
+    
+    list_past = ttk.Combobox(gp, textvariable = find_to,
+                                 values = list(memory.keys()), font = "Arial 20").place(x = 860, y = 15)
+
+    for i in range(5):
+        try:
+            m = memory[find_to.get()][i + n_column_past * 5]
+            Label(gp, text = m["time"] + " " * (55 - len(m["time"])),
                           font = "Times 19", bg = c_1, fg = 'White',
                           borderwidth = 0, relief = "sunken").place(x = 860, y = 60 + 120 * i)
-                    Label(gp, text = m["input"][:30] + "..." + " " * (35 - len(m["input"][:30])) ,
+            Label(gp, text = m["input"][:30] + "..." + " " * (35 - len(m["input"][:30])) ,
                           font = "Times 19", bg = c_1, fg = 'White',
                           borderwidth = 0, relief = "sunken").place(x = 860, y = 90 + 120 * i)
-                    Label(gp, text = m["query"][:30].replace("\n"," ").replace("  "," ") + "..." + " " * (35 - len(m["query"][:30].replace("\n"," ").replace("  "," "))),
+            Label(gp, text = m["query"][:30].replace("\n"," ").replace("  "," ") + "..." + " " * (35 - len(m["query"][:30].replace("\n"," ").replace("  "," "))),
                           font = "Times 19", bg = c_1, fg = 'White',
                           borderwidth = 0, relief = "sunken").place(x = 860, y = 120 + 120 * i)
 
-                    function = eval(f"pass_example_{i}")
-                    Button(gp, text = "←",
+            function = eval(f"pass_example_{i}")
+            Button(gp, text = "←",
                            bg = c_atention, borderwidth = 1, font = "Arial 10", activebackground = c_help,
                            activeforeground = 'White', fg = 'White',
                            command = function).place(x = 1175, y = 60 + 120 * i)        
-                except:
-                    pass
-        except RuntimeError:
-            break  
+        except:
+            Label(gp, text = " " * 100,
+                          font = "Times 19", bg = c_1, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 860, y = 60 + 120 * i)
+            Label(gp, text = " " * 100 ,
+                          font = "Times 19", bg = c_1, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 860, y = 90 + 120 * i)
+            Label(gp, text = " " * 100,
+                          font = "Times 19", bg = c_1, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 860, y = 120 + 120 * i)
 
-        sleep(3)
+        Label(gp, text = " "*20,
+                          font = "Times 19", bg = c_main, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 1070, y = 660)
+        
+        Label(gp, text = f"{n_column_past * 5}:{(n_column_past + 1) * 5}",
+                          font = "Times 19", bg = c_main, fg = 'White',
+                          borderwidth = 0, relief = "sunken").place(x = 1070, y = 660)
+
+def next_past():
+    global n_column_past
+    n_column_past += 1
+    past_column()
+
+def older_past():
+    global n_column_past
+    if n_column_past > 0:
+        n_column_past -= 1
+    past_column()
+
+@Parallel
+def confer_past():
+    old = find_to.get()
+    while True:
+        if old != find_to.get():
+            past_column()
+            old = find_to.get()
+        sleep(1)
+
 
 @Parallel
 def how_many_threads():
@@ -324,7 +348,7 @@ def how_many_threads():
             Label(gp, text = f"Active concurrent threads: {str(hm)}",
                           font = "Times 10", bg = c_1, fg = 'White',
                           borderwidth = 0, relief = "sunken").place(x = 5, y = 5)
-            sleep(1)
+            sleep(3)
     except RuntimeError:
         pass
         
@@ -403,6 +427,7 @@ if __name__ == "__main__":
     text_instruction = ""
     key_api = ""
     down = False
+    n_column_past = 0
 
     #Process:
     show_paths()
@@ -469,6 +494,16 @@ if __name__ == "__main__":
             activeforeground = 'White', fg = 'White',
             command = help_save_excel).place(x = 115, y = 390)
 
+    Button(gp, text = "⇦",
+            bg = c_help, borderwidth = 1, font = "Arial 19", activebackground = c_help,
+            activeforeground = 'White', fg = 'White',
+            command = older_past).place(x = 970, y = 645)
+
+    Button(gp, text = "⇨",
+            bg = c_help, borderwidth = 1, font = "Arial 19", activebackground = c_help,
+            activeforeground = 'White', fg = 'White',
+            command = next_past).place(x = 1020, y = 645)
+
 
     #Entrys:
     Entry(gp, textvariable = name_xlsx,
@@ -515,6 +550,7 @@ if __name__ == "__main__":
     num_characters()
     correct_bar()
     past_column()
+    confer_past()
     how_many_threads()
 
     gp.mainloop()
