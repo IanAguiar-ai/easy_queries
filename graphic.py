@@ -16,7 +16,7 @@ from chat_sql import pass_to_sql, request, to_excel
 
 import json
 
-defalt_text1 = "Sabendo disso, faça um requisição sql onde:"
+defalt_text1 = "Esse banco de dados se chama 'sales.db' com uma unica tabela chamada 'main_table'.\nSabendo disso, faça um requisição sql onde:"
 defalt_text2 = "Escreva apenas o código sql."
 
 class Parallel:
@@ -176,26 +176,17 @@ def make_request():
 
 @Parallel
 def save_in_excel():
+    if not "temp_df" in globals():
+        messagebox.showinfo(title = "Attention!",
+                        message = "You need to have made a request to be able to save the table.")
+        return
     global temp_df, name_xlsx
     up_bar(10)
     to_excel(temp_df, name_xlsx.get())
     up_bar(100)
 
-def lengh_text():
-    pass
-
 def clean():
     box_text.delete("1.0", "100000.100000")
-    pass
-
-def help_key():
-    pass
-
-def help_instructions():
-    pass
-
-def help_request():
-    pass 
 
 
 @Parallel
@@ -338,6 +329,27 @@ def how_many_threads():
         pass
         
 
+
+def help_key():
+    messagebox.showinfo(title = "Information!",
+                        message = "You must have your open-ai key in a txt file and choose it.\nIf you don't have the open-ai key get one here https://platform.openai.com/account/api-keys.")
+
+def help_instructions():
+    messagebox.showinfo(title = "Information!",
+                        message = "You should have a txt briefly explaining your database variables.")
+
+def help_request():
+    messagebox.showinfo(title = "Information!",
+                        message = "After writing your request in the larger box, you can make the request, then you can save the table of your request by pressing 'save'.")
+
+def help_excel():
+    messagebox.showinfo(title = "Information!",
+                        message = "Choose the spreadsheet you want to work on, everything involving the spreadsheet will be done locally on your computer for security.")
+
+def help_save_excel():
+    messagebox.showinfo(title = "Information!",
+                        message = "Save your request in an Excel table with the name you chose in the box on the side.") 
+
 ### Parte gráfica:
 if __name__ == "__main__":
 
@@ -434,7 +446,7 @@ if __name__ == "__main__":
     Button(gp, text = "?",
             bg = c_help, borderwidth = 1, font = "Arial 12", activebackground = c_help,
             activeforeground = 'White', fg = 'White',
-            command = help_instructions).place(x = 176, y = 620)
+            command = help_excel).place(x = 176, y = 620)
 
 
     Button(gp, text = "Request",
@@ -455,7 +467,7 @@ if __name__ == "__main__":
     Button(gp, text = "?",
             bg = c_help, borderwidth = 1, font = "Arial 12", activebackground = c_help,
             activeforeground = 'White', fg = 'White',
-            command = help_request).place(x = 115, y = 390)
+            command = help_save_excel).place(x = 115, y = 390)
 
 
     #Entrys:
