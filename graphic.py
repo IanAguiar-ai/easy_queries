@@ -34,7 +34,7 @@ class Parallel:
   
 def find_key():
     up_bar(20, "Choosing file.")
-    globals()["path_key"] = askopenfilename(filetypes = [("Arquivos de texto", "*.txt")])
+    globals()["path_key"] = askopenfilename(filetypes = [("txt", "*.txt")])
     up_bar(40, "Plotting.")
     show_paths()
     if globals()["path_key"] == "":
@@ -48,7 +48,7 @@ def find_key():
 
 def find_instructions():
     up_bar(20, "Choosing file.")
-    globals()["path_instructions"] = askopenfilename(filetypes = [("Arquivos de texto", "*.txt")])
+    globals()["path_instructions"] = askopenfilename(filetypes = [("txt", "*.txt")])
     up_bar(40, "Plotting.")
     show_paths()
     if globals()["path_instructions"] == "":
@@ -62,7 +62,7 @@ def find_instructions():
 
 def find_excel():
     up_bar(20, "Choosing file.")
-    globals()["path_excel"] = askopenfilename(filetypes = [("Arquivos Excel e CSV", "*.xlsx *.csv")])
+    globals()["path_excel"] = askopenfilename(filetypes = [("Excel e CSV", "*.xlsx *.csv")])
     if path_excel == "":
         down_bar()
         return
@@ -83,7 +83,7 @@ def time():
         try:
             time_now = datetime.datetime.now()
             #time_now.year, time_now.month, time_now.day, time_now.hour, time_now.minute, time_now.second
-            if time_now.minute > 10:
+            if time_now.minute >= 10:
                 Label(gp, text = f"⏳ {time_now.hour}:{time_now.minute}",
                       font = "Times 18", bg = c_main, fg = 'White').place(x = 728, y = 278)
             else:
