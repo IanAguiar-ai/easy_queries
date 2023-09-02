@@ -246,6 +246,50 @@ def correct_bar():
 def past_column():
     global memory
     n_column_past = 0
+
+    def pass_example_0():
+        global temp_df, name_xlsx
+        clean()
+        box_text.insert("1.0", memory[find_to.get()][0 + n_column_past]["input"])
+        box_sql.delete("1.0", "1000.1000")
+        box_sql.insert("1.0", memory[find_to.get()][0 + n_column_past]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][0 + n_column_past]["output"]
+    def pass_example_1():
+        global temp_df, name_xlsx
+        clean()
+        box_text.insert("1.0", memory[find_to.get()][1 + n_column_past]["input"])
+        box_sql.delete("1.0", "1000.1000")
+        box_sql.insert("1.0", memory[find_to.get()][1 + n_column_past]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][1 + n_column_past]["output"]
+    def pass_example_2():
+        global temp_df, name_xlsx
+        clean()
+        box_text.insert("1.0", memory[find_to.get()][2 + n_column_past]["input"])
+        box_sql.delete("1.0", "1000.1000")
+        box_sql.insert("1.0", memory[find_to.get()][2 + n_column_past]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][2 + n_column_past]["output"]
+    def pass_example_3():
+        global temp_df, name_xlsx
+        clean()
+        box_text.insert("1.0", memory[find_to.get()][3 + n_column_past]["input"])
+        box_sql.delete("1.0", "1000.1000")
+        box_sql.insert("1.0", memory[find_to.get()][3 + n_column_past]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][3 + n_column_past]["output"]
+    def pass_example_4():
+        global temp_df, name_xlsx
+        clean()
+        box_text.insert("1.0", memory[find_to.get()][4 + n_column_past]["input"])
+        box_sql.delete("1.0", "1000.1000")
+        box_sql.insert("1.0", memory[find_to.get()][4 + n_column_past]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][4 + n_column_past]["output"]
+    def pass_example_5():
+        global temp_df, name_xlsx
+        clean()
+        box_text.insert("1.0", memory[find_to.get()][5 + n_column_past]["input"])
+        box_sql.delete("1.0", "1000.1000")
+        box_sql.insert("1.0", memory[find_to.get()][5 + n_column_past]["query"].replace("\n"," "))
+        temp_df = memory[find_to.get()][5 + n_column_past]["output"]
+    
     while True:
         list_past = ttk.Combobox(gp, textvariable = find_to,
                                  values = list(memory.keys()), font = "Arial 20").place(x = 860, y = 15)
@@ -262,6 +306,12 @@ def past_column():
                 Label(gp, text = m["query"][:30].replace("\n"," ").replace("  "," ") + "..." + " " * (35 - len(m["query"][:30].replace("\n"," ").replace("  "," "))),
                       font = "Times 19", bg = c_1, fg = 'White',
                       borderwidth = 0, relief = "sunken").place(x = 860, y = 120 + 120 * i)
+
+                function = eval(f"pass_example_{i}")
+                Button(gp, text = "←",
+                       bg = c_atention, borderwidth = 1, font = "Arial 10", activebackground = c_help,
+                       activeforeground = 'White', fg = 'White',
+                       command = function).place(x = 1175, y = 60 + 120 * i)
 
             except:
                 pass
@@ -341,7 +391,7 @@ if __name__ == "__main__":
     #past_column()
     
     #Texto principal:
-    Label(gp, text = "Titulo",
+    Label(gp, text = "EASY QUERY",
           font = "Times 60", bg = c_main, fg = 'White',
           borderwidth = 0, relief = "sunken").place(x = 15, y = 15)
 
